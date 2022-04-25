@@ -1,13 +1,8 @@
-import { AppError } from "../../../../shared/errors/AppError";
 import { InMemoryUsersRepository } from "../../repositories/in-memory/InMemoryUsersRepository";
 import { CreateUserUseCase } from "../createUser/CreateUserUseCase";
 import { ICreateUserDTO } from "../createUser/ICreateUserDTO";
+import { ShowUserProfileError } from "./ShowUserProfileError";
 import { ShowUserProfileUseCase } from "./ShowUserProfileUseCase";
-
-
-// let authenticateUserUseCase: AuthenticateUserUseCase;
-
-// let user : ICreateUserDTO
 
 let showUserProfileUseCase: ShowUserProfileUseCase
 let inMemoryUsersRepository: InMemoryUsersRepository;
@@ -22,8 +17,7 @@ describe("User Profile", () => {
         inMemoryUsersRepository = new InMemoryUsersRepository()
         showUserProfileUseCase = new ShowUserProfileUseCase(inMemoryUsersRepository)
         createUserUseCase = new CreateUserUseCase(inMemoryUsersRepository)
-        // authenticateUserUseCase = new AuthenticateUserUseCase(inMemoryUsersRepository)
-
+        
         user = {
             name: "User Teste",
             password: "1234",
@@ -50,7 +44,7 @@ describe("User Profile", () => {
 
             await showUserProfileUseCase.execute("not exsits")
 
-        }).rejects.toBeInstanceOf(AppError)
+        }).rejects.toBeInstanceOf(ShowUserProfileError)
 
     })
 })
